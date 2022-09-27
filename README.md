@@ -1,1 +1,1 @@
-# smc-backend-v2
+# skeleton_for_app1

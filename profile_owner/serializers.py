@@ -8,4 +8,4 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile_owner
-        fields = ('__all__')
+        fields = ('id','profile_name','slug','user', 'link')

@@ -24,3 +24,4 @@ class Profile_owner(models.Model):
     profile_type = models.CharField(
         max_length=255, blank=False,
         null=False)
+    link = models.CharField(max_length=255, blank=True, null=True)

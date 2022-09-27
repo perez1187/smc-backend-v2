@@ -13,6 +13,9 @@ from .models import User
 from .serializers import RegisterSerializer, UserSerializer, ChangePasswordSerializer, LoginSerializer, EmailVerificationSerializer, ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer, LogoutSerializer
 from .emails import send_register_email_sendgrid
 
+# other apps
+from profile_owner import models as profile_owner_models
+
 
 # test
 from rest_framework import permissions
@@ -64,6 +67,11 @@ class RegisterView(generics.GenericAPIView):
 
         # sending email from sendgrid
         send_register_email_sendgrid(data) # manualy set receiver o.perez1187@gmail.com
+
+        # create profile owner
+        profile_owner_models.Profile_owner(user=user, profile_type='user_profile').save()
+
+
 
         return response.Response(user_data, status=status.HTTP_201_CREATED)
 

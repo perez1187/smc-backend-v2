@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'authentication',
     'social_auth',
     'profile_owner',
+    'profiles',
 
     # 3rd parties
     'rest_framework',

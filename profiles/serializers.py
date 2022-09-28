@@ -28,6 +28,7 @@ class ChessInstructorSerializer(CountryFieldMixin,serializers.ModelSerializer):
         }
 
 class CreateChessInstructorSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = profile_owner_models.Profile_owner
         fields = ('id',"profile_name","slug","profile_type","link","user")

@@ -3,10 +3,12 @@
 2. check id
 3.  create chess instructor profile
 '''
+import rest_framework_simplejwt
 
 from rest_framework import generics,response, status
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
 
 # local
 from . serializers import ChessInstructorSerializer, CreateChessInstructorSerializer
@@ -23,6 +25,7 @@ from authentication import models as auth_models
 class ChessInstructorAPIView(generics.ListAPIView):
     serializer_class = ChessInstructorSerializer
     queryset = Chess_Instructor_Profile.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         user = self.request.user # that give us email from token ?
@@ -36,21 +39,26 @@ class ChessInstructorAPIVIew(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ChessInstructorSerializer
     queryset = Chess_Instructor_Profile.objects.all()
     lookup_field = "id"
+    
+    permission_classes=(IsAuthenticatedOrReadOnly,)
 
+    '''
+        this is for updating deleteing
+        because we check if owner is a user (from token)
+    '''
+    # def get_queryset(self):
 
-    def get_queryset(self):
-
-        # print ('self:   ',self)
-        user = self.request.user # that give us email from token ?
-        # print('user: ',user)
+    #     # print ('self:   ',self)
+    #     user = self.request.user # that give us email from token ?
+    #     # print('user: ',user)
        
-        #print('flaaaag',self.country.flag)
-        CIP = Chess_Instructor_Profile.objects.get(user=user)
-        print(CIP)
-        print(CIP.country.flag)
+    #     #print('flaaaag',self.country.flag)
+    #     CIP = Chess_Instructor_Profile.objects.get(user=user)
+    #     print(CIP)
+    #     print(CIP.country.flag)
 
 
-        return Chess_Instructor_Profile.objects.filter(user=user)
+    #     return Chess_Instructor_Profile.objects.filter(user=user)
 
 
 class CreateChessInstructorAPIView(generics.GenericAPIView):

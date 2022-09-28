@@ -4,8 +4,9 @@
 3.  create chess instructor profile
 '''
 
-from pkgutil import ImpImporter
 from rest_framework import generics,response, status
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
 
 # local
 from . serializers import ChessInstructorSerializer, CreateChessInstructorSerializer
@@ -42,6 +43,13 @@ class ChessInstructorAPIVIew(generics.RetrieveUpdateDestroyAPIView):
         # print ('self:   ',self)
         user = self.request.user # that give us email from token ?
         # print('user: ',user)
+       
+        #print('flaaaag',self.country.flag)
+        CIP = Chess_Instructor_Profile.objects.get(user=user)
+        print(CIP)
+        print(CIP.country.flag)
+
+
         return Chess_Instructor_Profile.objects.filter(user=user)
 
 
@@ -55,24 +63,34 @@ class CreateChessInstructorAPIView(generics.GenericAPIView):
     def post(self, request):
         # screating profile owner for chess instructor
         serializer= self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        data= serializer.validated_data    
-  
+        serializer.is_valid(raise_exception=True)         
 
         # # we check if user is a correct user
         data_user = auth_models.User.objects.get(id=self.request.data['user'])
         request_user = self.request.user 
         if request_user != data_user:
-            print("same")
             return response.Response({"error":"wrong user"}, status=status.HTTP_400_BAD_REQUEST)
         
         # we check if user already has a chess instructor account
         if profile_owner_models.Profile_owner.objects.filter(user=self.request.data['user'],profile_type="chess_instructor").exists():
             return response.Response({"error": "instructor exist."})
+        
         serializer.save()
+        
+        # creating chess instructor profile
         profile_owner_instance = profile_owner_models.Profile_owner.objects.get(user=self.request.data['user'],profile_type="chess_instructor")      
-        print(profile_owner_instance)
-        # creating chess instructor
         Chess_Instructor_Profile(profile_owner=profile_owner_instance,user=data_user).save()
+        
+        # add link to profile owner
+        CIP_ID = Chess_Instructor_Profile.objects.get(user=self.request.data['user']).id
+              
+        current_site = get_current_site(request).domain
+        # relative_link=reverse('my-chess-instructor') # relative name urls.py
+        absurl = 'http://'+current_site +'/profiles/my-chess-instructor/'+str(CIP_ID)+"/"
+
+    
+        ProfileOwner = profile_owner_models.Profile_owner.objects.get(user=self.request.data['user'],profile_type="chess_instructor")
+        ProfileOwner.link = absurl
+        ProfileOwner.save()
 
         return response.Response(serializer.data, status=status.HTTP_201_CREATED)

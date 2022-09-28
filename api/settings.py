@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     "corsheaders",
     'rest_framework_simplejwt.token_blacklist',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -105,6 +106,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+COUNTRIES_FLAG_URL = 'flags/{code}.png'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 from django.conf import settings
@@ -24,4 +25,6 @@ class Profile_owner(models.Model):
     profile_type = models.CharField(
         max_length=255, blank=False,
         null=False)
-    link = models.CharField(max_length=255, blank=True, null=True)
+    
+    link = models.CharField(max_length=255, blank=False, default="")
+

@@ -6,13 +6,15 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
         "user",
         "profile_name",
         "slug",
-        "profile_type"
+        "profile_type",
+        "link"
     )
     fields =(
         "user",
         "profile_name",
         "slug",
-        "profile_type"
+        "profile_type",
+        "link"
     )
 
 admin.site.register(models.Profile_owner, ProfileOwnerAdmin)

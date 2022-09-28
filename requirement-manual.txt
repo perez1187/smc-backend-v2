@@ -9,3 +9,4 @@ django-cors-headers
 google-api-python-client
 pytest
 pytest-django
+django-countries

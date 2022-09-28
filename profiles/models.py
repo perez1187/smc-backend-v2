@@ -6,6 +6,8 @@ from django_countries.fields import CountryField
 
 class Chess_Instructor_Profile(models.Model):
     profile_owner = models.ForeignKey(profile_owner_models.Profile_owner, on_delete=models.CASCADE)
+    first_name =  models.CharField(max_length=32, blank=True, default='')
+    second_name= models.CharField(max_length=32, blank=True, default='')
     title= models.CharField(max_length=16, blank=True, null=True)
     description=models.TextField(default='', blank=True)
     user = models.ForeignKey(
@@ -39,3 +41,9 @@ class Chess_Instructor_Profile(models.Model):
     hidden_message = models.TextField(default='')
 
     # desc2 = models.TextField(default='')
+    @property
+    def profile_owner_name(self):
+        return self.profile_owner.profile_name
+    @property
+    def user_name(self):
+        return self.user.email

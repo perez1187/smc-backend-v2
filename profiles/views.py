@@ -70,9 +70,9 @@ class CreateChessInstructorAPIView(generics.GenericAPIView):
         if profile_owner_models.Profile_owner.objects.filter(user=self.request.data['user'],profile_type="chess_instructor").exists():
             return response.Response({"error": "instructor exist."})
         serializer.save()
-        print(serializer.data)
-
+        profile_owner_instance = profile_owner_models.Profile_owner.objects.get(user=self.request.data['user'],profile_type="chess_instructor")      
+        print(profile_owner_instance)
         # creating chess instructor
-        # Chess_Instructor_Profile()
+        Chess_Instructor_Profile(profile_owner=profile_owner_instance,user=data_user).save()
 
         return response.Response(serializer.data, status=status.HTTP_201_CREATED)

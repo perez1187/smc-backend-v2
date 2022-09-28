@@ -17,7 +17,7 @@ class ChessInstructorSerializer(serializers.ModelSerializer):
 class CreateChessInstructorSerializer(serializers.ModelSerializer):
     class Meta:
         model = profile_owner_models.Profile_owner
-        fields = ('__all__')
+        fields = ('id',"profile_name","slug","profile_type","link","user")
 
     def validate(self, attrs):
                         

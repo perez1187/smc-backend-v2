@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'social_auth',
     'profile_owner',
     'profiles',
+    'videovimeo',
 
     # 3rd parties
     'rest_framework',

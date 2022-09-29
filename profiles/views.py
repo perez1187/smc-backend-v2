@@ -11,7 +11,7 @@ from django.urls import reverse
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
 
 # local
-from . serializers import ChessInstructorSerializer, CreateChessInstructorSerializer
+from . serializers import ChessInstructorSerializer, CreateChessInstructorSerializer, InstructorListSerializer
 from . models import Chess_Instructor_Profile
 from . utils import chess_instructor_validation
 # other aps
@@ -102,3 +102,14 @@ class CreateChessInstructorAPIView(generics.GenericAPIView):
         ProfileOwner.save()
 
         return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class InstructorListAPIView(generics.ListAPIView):
+    serializer_class = InstructorListSerializer
+    queryset = profile_owner_models.Profile_owner.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+
+    # def get_queryset(self):
+    #     user = self.request.user # that give us email from token ?
+    #     print('user: ',user)
+    #     return Chess_Instructor_Profile.objects.filter(user=user) # is owner of user account

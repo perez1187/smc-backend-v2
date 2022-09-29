@@ -45,3 +45,14 @@ class CreateChessInstructorSerializer(serializers.ModelSerializer):
 
         return attrs # so after validation we return attribuits
 
+class ChessProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chess_Instructor_Profile
+        fields = ['id']
+
+
+class InstructorListSerializer(serializers.ModelSerializer):
+    chess_profiles=ChessProfileSerializer(many=False, read_only=True)
+    class Meta:
+        model = profile_owner_models.Profile_owner
+        fields = ('id',"profile_name","slug","profile_type","link","user",'chess_profiles')

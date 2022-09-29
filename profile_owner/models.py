@@ -9,6 +9,37 @@ PROFILE_TYPE = {
     'checkers_instructor': 'checkers_instructor',
     }
 
+def default_socials():
+    return {
+        "facebook":"",
+        "instagram":"",
+        "twitter":"",
+        "youtube":"",
+        "tiktok":"",
+        "own_www":"",
+    }
+def default_chess_profile():
+    return {
+        "top_rating":"",
+        "top_rating_date":"",
+        "top_rating_type": "",
+        "actual_rating":"",
+        "actual_rating_type":"",
+        "fide.com":"",
+        "chess.com":"",
+        "lichess.org":"",
+    }
+def default_checkers_profile():
+    return {
+        "top_rating":"",
+        "top_rating_date":"",
+        "top_rating_type": "",
+        "actual_rating":"",
+        "actual_rating_type":"",
+        "fmjd.org":"",        
+    }
+
+
 class Profile_owner(models.Model):
     '''
         this is the way how django recommend to conect user as ForeignKey
@@ -18,13 +49,23 @@ class Profile_owner(models.Model):
         on_delete=models.CASCADE,
         verbose_name="user"
     )
-    profile_name = models.CharField(max_length=255, blank=True, null=True)
-    slug= models.SlugField(blank=True, null=True)
+    first_name = models.CharField(max_length=65, blank=True, default="")
+    last_name = models.CharField(max_length=65, blank=True, default="")
+    profile_name = models.CharField(max_length=255, blank=True, default="")
+    slug= models.SlugField(blank=True, null=True,unique=True)
 
     # added for auth provider, in future as db table
     profile_type = models.CharField(
         max_length=255, blank=False,
         null=False)
     
-    link = models.CharField(max_length=255, blank=False, default="")
+    # link = models.CharField(max_length=255, blank=False, default="")
+
+    socials = models.JSONField(default=default_socials, blank=True)
+    chess_profile = models.JSONField(default=default_chess_profile,blank=True)
+    checkers_profile = models.JSONField(default=default_checkers_profile,blank=True)
+    profile_is_active = models.BooleanField(default=False,blank=True)
+    hidden_message = models.TextField(blank=True,default='')
+    accepts_new_students = models.BooleanField(default=False, blank=True)
+    languages = models.CharField(max_length=16, blank=True, default='eng')
 

@@ -9,6 +9,8 @@ from . serializers import ProfileSerializer, ImageSerializer
 from . models import Profile_owner, UploadImageTest
 from profile_owner import serializers
 
+from authentication import authentication
+
 
 
 '''
@@ -66,10 +68,11 @@ class ProfileUpdateAPIView(generics.UpdateAPIView):
     serializer_class = ProfileSerializer
     queryset = Profile_owner.objects.all()
     lookup_field = "id"
+    authentication_classes=(authentication.CustomUserAuthentication, )
     permission_classes=(IsAuthenticatedOrReadOnly,)
 
 
     def get_queryset(self):
         user = self.request.user # that give us email from token ?
-        print('user: ',user)
+        #print('user: ',user)
         return Profile_owner.objects.filter(user=user) # is owner of user account

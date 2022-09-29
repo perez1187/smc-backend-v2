@@ -16,6 +16,8 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
         "hidden_message",
         "accepts_new_students",
         "languages",
+        
+
 
     )
     fields =(
@@ -32,10 +34,13 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
         "hidden_message",
         "accepts_new_students",
         "languages",
+        "languages_test",
+        
 
     )
 
 admin.site.register(models.Profile_owner, ProfileOwnerAdmin)
+admin.site.register(models.Languages)
 
 '''
 example of other use

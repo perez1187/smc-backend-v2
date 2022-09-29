@@ -38,7 +38,8 @@ def default_checkers_profile():
         "actual_rating_type":"",
         "fmjd.org":"",        
     }
-
+class Languages(models.Model):
+    language = models.CharField(max_length=32, blank=True)
 
 class Profile_owner(models.Model):
     '''
@@ -68,4 +69,6 @@ class Profile_owner(models.Model):
     hidden_message = models.TextField(blank=True,default='')
     accepts_new_students = models.BooleanField(default=False, blank=True)
     languages = models.CharField(max_length=16, blank=True, default='eng')
+
+    languages_test = models.ManyToManyField(Languages, blank=True, null=True)
 

@@ -8,28 +8,23 @@ from profile_owner import serializers
 '''
     Get User info
 '''
-class MyProfilesAPIView(generics.ListAPIView):
+class ProfilesAPIView(generics.ListAPIView):
     serializer_class = ProfileSerializer
     queryset = Profile_owner.objects.all()
-
-    # def get_queryset(self):
-    #     return Profile_owner.objects.filter(profile_type="chess_instructor")
-
-    # def get_queryset(self):
-    #     user = self.request.user # that give us email from token ?
-    #     print('user: ',user)
-    #     return Profile_owner.objects.filter(user=user) # is owner of user account
 
 class ProfilesFilteredAPIView(generics.ListAPIView):
     serializer_class = ProfileSerializer
     
-    # http://127.0.0.1:8000/profile-owner/profiles/?profile=chess_instructor
+    # examle: http://127.0.0.1:8000/profile-owner/profiles/?profile=user_profile&language=1
     def get_queryset(self):
         queryset = Profile_owner.objects.all()
+        
         profile = self.request.query_params.get('profile')
-        
-        queryset=queryset.filter(profile_type=profile)
-        
+        if profile is not None:        
+            queryset=queryset.filter(profile_type=profile)
+        language = self.request.query_params.get('language')
+        if language is not None:        
+            queryset=queryset.filter(languages_test=language)        
         return queryset
 
 

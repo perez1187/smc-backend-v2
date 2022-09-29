@@ -41,6 +41,7 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
 
 admin.site.register(models.Profile_owner, ProfileOwnerAdmin)
 admin.site.register(models.Languages)
+admin.site.register(models.UploadImageTest)
 
 '''
 example of other use

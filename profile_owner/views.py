@@ -1,9 +1,12 @@
 from rest_framework import generics,views,status,response
+from rest_framework.parsers import MultiPartParser, FormParser
 
 # local
-from . serializers import ProfileSerializer
-from . models import Profile_owner
+from . serializers import ProfileSerializer, ImageSerializer
+from . models import Profile_owner, UploadImageTest
 from profile_owner import serializers
+
+
 
 '''
     Get User info
@@ -29,3 +32,24 @@ class ProfilesFilteredAPIView(generics.ListAPIView):
 
 
 
+# class ImageViewSet(generics.ListAPIView):
+#     queryset = UploadImageTest.objects.all()
+#     serializer_class = ImageSerializer
+
+#     def post(self, request, *args, **kwargs):
+#         file = request.data['file']
+#         image = UploadImageTest.objects.create(image=file)
+        
+#         return response.Response({'message': "Uploaded"}, status=status.HTTP_200_OK)
+#         #return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
+
+class ImageViewSet(views.APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = ImageSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return response.Response({'message': "Uploaded"}, status=status.HTTP_200_OK)

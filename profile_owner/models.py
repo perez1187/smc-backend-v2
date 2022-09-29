@@ -72,3 +72,9 @@ class Profile_owner(models.Model):
 
     languages_test = models.ManyToManyField(Languages, blank=True, null=True)
 
+def nameFile(instance, filename):
+    return 'posts/{filename}'.format(filename=filename)
+
+class UploadImageTest(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to=nameFile, blank=True, null=True)

@@ -1,5 +1,8 @@
 from rest_framework import generics,views,status,response
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+from django.shortcuts import get_object_or_404
 
 # local
 from . serializers import ProfileSerializer, ImageSerializer
@@ -53,3 +56,20 @@ class ImageViewSet(views.APIView):
         if serializer.is_valid():
             serializer.save()
             return response.Response({'message': "Uploaded"}, status=status.HTTP_200_OK)
+
+class ProfileAPIVIew(generics.RetrieveAPIView):
+    serializer_class = ProfileSerializer
+    queryset = Profile_owner.objects.all()
+    lookup_field = "id"
+
+class ProfileUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = ProfileSerializer
+    queryset = Profile_owner.objects.all()
+    lookup_field = "id"
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+
+
+    def get_queryset(self):
+        user = self.request.user # that give us email from token ?
+        print('user: ',user)
+        return Profile_owner.objects.filter(user=user) # is owner of user account

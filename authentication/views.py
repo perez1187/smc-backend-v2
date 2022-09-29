@@ -107,7 +107,7 @@ class MeAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user # that give us email from token ?
-        # print('user: ',user)
+        print('user: ',user)
         return User.objects.filter(email=user) # is owner of user account
 
 '''

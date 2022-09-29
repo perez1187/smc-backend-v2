@@ -38,6 +38,9 @@ def default_checkers_profile():
         "actual_rating_type":"",
         "fmjd.org":"",        
     }
+def avatar_upload(instance,filename):
+    return 'avatars/{filename}'.format(filename=filename)
+
 class Languages(models.Model):
     language = models.CharField(max_length=32, blank=True)
 
@@ -48,8 +51,10 @@ class Profile_owner(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        verbose_name="user"
+        verbose_name="user",
+        blank=True # temporary
     )
+    avatar= models.ImageField(upload_to=avatar_upload, blank=True, null=True)
     first_name = models.CharField(max_length=65, blank=True, default="")
     last_name = models.CharField(max_length=65, blank=True, default="")
     profile_name = models.CharField(max_length=255, blank=True, default="")
@@ -57,7 +62,7 @@ class Profile_owner(models.Model):
 
     # added for auth provider, in future as db table
     profile_type = models.CharField(
-        max_length=255, blank=False,
+        max_length=255, blank=True,
         null=False)
     
     # link = models.CharField(max_length=255, blank=False, default="")

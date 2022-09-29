@@ -3,7 +3,9 @@ from . import models
 
 class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
     list_display= (
+        "id",
         "user",
+        "avatar",
         'first_name',
         'last_name',
         "profile_name",
@@ -21,7 +23,9 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
 
     )
     fields =(
+        "id",
         "user",
+        "avatar",
         'first_name',
         'last_name',
         "profile_name",

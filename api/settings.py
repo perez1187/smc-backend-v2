@@ -185,3 +185,6 @@ CORS_ALLOW_ALL_ORIGINS: True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/' # 'http://myhost:port/media/'
+
+# CELERY SETTINGS
+CELERY_BROKER_URL = 'redis://localhost:6380'

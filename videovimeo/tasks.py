@@ -13,12 +13,11 @@ client = vimeo.VimeoClient(
 
 @app.task(bind=True)
 def upload_video(self, video_id, link_lokal_my):
-    #pass
 
     video = UploadVideo.objects.get(id=video_id)
     video.status="chujs"
 
-    print(self)
+    #print(self)
     #print("link lokal", link_lokal)
 
     file_name = link_lokal_my
@@ -26,8 +25,8 @@ def upload_video(self, video_id, link_lokal_my):
       'name': 'test3',
       'description': 'The description goes here.'
     })
-    print('Your video URI is: %s' % (uri))
-    print(uri)
-    video.link_lokal = uri
+    # print('Your video URI is: %s' % (uri))
+    # print(uri)
+    video.link = uri
 
     video.save()

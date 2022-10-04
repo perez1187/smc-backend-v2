@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'profile_owner',
     'profiles',
     'videovimeo',
+    'crm',
 
     # 3rd parties
     'rest_framework',

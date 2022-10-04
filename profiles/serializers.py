@@ -1,58 +1,58 @@
-from rest_framework import serializers,response
+# from rest_framework import serializers,response
 
-#local
-from .models import Chess_Instructor_Profile
+# #local
+# from .models import Chess_Instructor_Profile
 
-# other apps
-from profile_owner import models as profile_owner_models
-from django_countries.serializers import CountryFieldMixin
-from profile_owner import models as profile_owner_models
-
-
+# # other apps
+# from profile_owner import models as profile_owner_models
+# from django_countries.serializers import CountryFieldMixin
+# from profile_owner import models as profile_owner_models
 
 
-class ChessInstructorSerializer(CountryFieldMixin,serializers.ModelSerializer):
+
+
+# class ChessInstructorSerializer(CountryFieldMixin,serializers.ModelSerializer):
     
-    profile_owner_name=serializers.ReadOnlyField()
-    user_name=serializers.ReadOnlyField()
+#     profile_owner_name=serializers.ReadOnlyField()
+#     user_name=serializers.ReadOnlyField()
 
-    class Meta:
-        model = Chess_Instructor_Profile
-        fields = ('__all__')
+#     class Meta:
+#         model = Chess_Instructor_Profile
+#         fields = ('__all__')
         
-        extra_kwargs = {
-            "id": {"read_only":True},
-            "user": {"read_only": True},
-            "profile_owner": {"read_only": True},
-            "country":{"country_dict":True}
-        }
+#         extra_kwargs = {
+#             "id": {"read_only":True},
+#             "user": {"read_only": True},
+#             "profile_owner": {"read_only": True},
+#             "country":{"country_dict":True}
+#         }
 
-class CreateChessInstructorSerializer(serializers.ModelSerializer):
+# class CreateChessInstructorSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = profile_owner_models.Profile_owner
-        fields = ('id',"profile_name","slug","profile_type","link","user")
+#     class Meta:
+#         model = profile_owner_models.Profile_owner
+#         fields = ('id',"profile_name","slug","profile_type","link","user")
 
 
 
-    def validate(self, attrs):
+#     def validate(self, attrs):
                         
-        user_id = attrs.get('user','')
-        profile_type = attrs.get('profile_type','')
+#         user_id = attrs.get('user','')
+#         profile_type = attrs.get('profile_type','')
         
-        if profile_type != "chess_instructor":
-            raise serializers.ValidationError({"error":"this is endpoint for chess instructor"})
+#         if profile_type != "chess_instructor":
+#             raise serializers.ValidationError({"error":"this is endpoint for chess instructor"})
 
-        return attrs # so after validation we return attribuits
+#         return attrs # so after validation we return attribuits
 
-class ChessProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chess_Instructor_Profile
-        fields = ['id']
+# class ChessProfileSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Chess_Instructor_Profile
+#         fields = ['id']
 
 
-class InstructorListSerializer(serializers.ModelSerializer):
-    chess_profiles=ChessProfileSerializer(many=False, read_only=True)
-    class Meta:
-        model = profile_owner_models.Profile_owner
-        fields = ('id',"profile_name","slug","profile_type","link","user",'chess_profiles')
+# class InstructorListSerializer(serializers.ModelSerializer):
+#     chess_profiles=ChessProfileSerializer(many=False, read_only=True)
+#     class Meta:
+#         model = profile_owner_models.Profile_owner
+#         fields = ('id',"profile_name","slug","profile_type","link","user",'chess_profiles')

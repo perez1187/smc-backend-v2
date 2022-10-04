@@ -5,6 +5,7 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
     list_display= (
         "id",
         "user",
+        "is_instructor",
         "avatar",
         'first_name',
         'last_name',
@@ -23,8 +24,9 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
 
     )
     fields =(
-        "id",
+        
         "user",
+        "is_instructor",
         "avatar",
         'first_name',
         'last_name',

@@ -35,6 +35,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile-owner/', include('profile_owner.urls')),
     path('video/', include('videovimeo.urls')),
+    path('crm/', include('crm.urls')),
     #path('profiles/', include('profiles.urls')),
     path('auth/', include('authentication.urls')),
     # path('^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),

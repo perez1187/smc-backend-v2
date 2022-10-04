@@ -8,4 +8,9 @@ class StudentListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ("__all__")
-        #fields = ('id','profile_name','slug','user', 'link', "socials")
+
+class StudentNotesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Students_note
+        fields = ("__all__")

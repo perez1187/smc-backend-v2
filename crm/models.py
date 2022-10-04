@@ -16,3 +16,4 @@ class Students_note(models.Model):
     created_date = models.DateTimeField(auto_now_add = True)
     updated_date = models.DateTimeField(auto_now = True)
     prize = models.DecimalField(max_digits=6, decimal_places=2, blank= True, default= 0)
+    instructor = models.ForeignKey(Profile_owner, on_delete=models.CASCADE, blank=True,default=1) # deete default on production

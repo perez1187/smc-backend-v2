@@ -182,10 +182,15 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
 }
 
-CORS_ALLOW_ALL_ORIGINS: True
+# CORS_ALLOW_ALL_ORIGINS: True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/' # 'http://myhost:port/media/'
 
 # CELERY SETTINGS
 CELERY_BROKER_URL = 'redis://localhost:6380'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:9000",
+]

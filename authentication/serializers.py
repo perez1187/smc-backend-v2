@@ -24,8 +24,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         email = attrs.get('email','')
         password = attrs.get('password','')
         pass_err_mess= {
-            'eng':'password should be at least 6 characters long',
-            'pl':'haslo powinno miec conajmniej 6 znaków'
+            'password':'password should be at least 6 characters long'
             }
         if len(password)<6:
             raise serializers.ValidationError(pass_err_mess)

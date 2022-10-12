@@ -59,7 +59,7 @@ class RegisterView(generics.GenericAPIView):
         #relative_link=reverse('email-verify') # relative name urls.py
         # absurl = 'http://'+current_site +relative_link+"?token="+str(token)
 
-        absurl = "http://localhost:5173/activate?token="+str(token)
+        absurl = "http://localhost:5173/activate?token="+str(token)+"&email="+user_data["email"]
         
         print("absurl: ",absurl)
         

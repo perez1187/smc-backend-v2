@@ -178,7 +178,7 @@ SWAGGER_SETTINGS = {
 
 # copy paste from settings JWT
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=150),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=150), # for evelopment
     'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
 }
 

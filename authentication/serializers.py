@@ -34,6 +34,11 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
+class ResendEmailActivation(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email']
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

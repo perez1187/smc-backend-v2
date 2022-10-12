@@ -10,7 +10,7 @@ from django.conf import settings
 
 # local
 from .models import User
-from .serializers import RegisterSerializer, UserSerializer, ChangePasswordSerializer, LoginSerializer, EmailVerificationSerializer, ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer, LogoutSerializer
+from .serializers import RegisterSerializer, UserSerializer, ChangePasswordSerializer, LoginSerializer, EmailVerificationSerializer, ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer, LogoutSerializer, ResendEmailActivation
 from .emails import send_register_email_sendgrid
 
 # other apps
@@ -53,11 +53,15 @@ class RegisterView(generics.GenericAPIView):
         user.save()
 
         # sending registration email
-        current_site = get_current_site(request).domain
-        relative_link=reverse('email-verify') # relative name urls.py
-        absurl = 'http://'+current_site +relative_link+"?token="+str(token)
 
-        print(absurl)
+        '''this is if I want to get domain'''
+        #current_site = get_current_site(request).domain
+        #relative_link=reverse('email-verify') # relative name urls.py
+        # absurl = 'http://'+current_site +relative_link+"?token="+str(token)
+
+        absurl = "http://localhost:5173/activate?token="+str(token)
+        
+        print("absurl: ",absurl)
         
         data = {
             "receiver":user_data["email"],
@@ -75,7 +79,50 @@ class RegisterView(generics.GenericAPIView):
 
         return response.Response(user_data, status=status.HTTP_201_CREATED)
 
+class ResendEmailActivationView(generics.GenericAPIView):
+    '''
+        if token is expired
+        user account is not activate
+        create new Token and send new Email
+    '''
+    serializer_class = ResendEmailActivation
+    def post (self, request):
+        print(request.data)
+        # serializer= self.serializer_class(data=request.data)
+        # serializer.is_valid(raise_exception=True)
+        # user_data = serializer.data
 
+        # print("user_data", user_data)
+
+        # create token for User
+        try:       
+            user = User.objects.get(email=request.data['email'])
+        except:
+            return response.Response({"error":"user does not exist"})
+        print("user: ", user)
+        print("user is verified", user.is_verified)
+        if user.is_verified == False :
+            
+            token = RefreshToken.for_user(user).access_token
+            # print("tokent", token, ' is verified', user.is_verified)
+
+            # sending another activation email
+            absurl = "http://localhost:5173/activate?token="+str(token)
+
+            data = {
+                "receiver":request.data["email"],
+                "domain":absurl,
+                "subject": 'Verify Email',
+            }
+
+            # sending email from sendgrid
+            send_register_email_sendgrid(data) # manualy set receiver o.perez1187@gmail.com
+            return response.Response({"message": "email sent"})
+        
+        else :
+            return response.Response({"message": "your account is already activated"})
+
+        
 
 class VerifyEmail(views.APIView):
     serializer_class = EmailVerificationSerializer

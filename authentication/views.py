@@ -247,10 +247,11 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
             # # sending registration email
 
             current_site = get_current_site(request=request).domain
-            relative_link=reverse('password-reset-confirm',kwargs={'uidb64':uidb64,'token':token}) # relative name urls.py
-            absurl = 'http://'+current_site +relative_link
+            # relative_link=reverse('password-reset-confirm',kwargs={'uidb64':uidb64,'token':token}) # relative name urls.py
+            # absurl = 'http://'+current_site +relative_link
             
-            email_body = 'hi' # I use template
+            # email_body = 'hi' # I use template
+            absurl= "http://localhost:5173/change-forgot-password?token="+str(token)+"&uidb64="+str(uidb64)
             print (absurl)
 
             data = {

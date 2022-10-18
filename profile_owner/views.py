@@ -6,10 +6,12 @@ from django.shortcuts import get_object_or_404
 
 # local
 from . serializers import ProfileSerializer, ImageSerializer
-from . models import Profile_owner, UploadImageTest
 from profile_owner import serializers
 
 from authentication import authentication
+
+#  models
+from . models import Profile_owner, UploadImageTest
 
 
 
@@ -17,8 +19,20 @@ from authentication import authentication
     Get User info
 '''
 class ProfilesAPIView(generics.ListAPIView):
-    serializer_class = ProfileSerializer
-    queryset = Profile_owner.objects.all()
+    serializer_class = ProfileSerializer  
+    authentication_classes=(authentication.CustomUserAuthentication, )
+
+    # queryset = Profile_owner.objects.all()
+    def get_queryset(self):
+        """
+        This view should return a list of all the profiles
+        for the currently authenticated user.
+        """
+        user = self.request.user
+
+        print("user", user)
+        # return Profile_owner.objects.all()
+        return Profile_owner.objects.filter(user=user)
 
 class ProfilesFilteredAPIView(generics.ListAPIView):
     serializer_class = ProfileSerializer

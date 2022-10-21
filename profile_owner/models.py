@@ -60,6 +60,8 @@ class Profile_owner(models.Model):
     profile_name = models.CharField(max_length=255, blank=True, default="")
     slug= models.SlugField(blank=True, null=True,unique=True)
 
+    country = models.CharField(max_length =5, blank= True, default="pl")
+
     is_instructor = models.BooleanField(default=False, blank=True)
     # added for auth provider, in future as db table
     profile_type = models.CharField(

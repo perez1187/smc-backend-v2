@@ -28,6 +28,7 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
         "user",
         "is_instructor",
         "avatar",
+        "country",
         'first_name',
         'last_name',
         "profile_name",

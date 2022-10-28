@@ -20,6 +20,7 @@ def default_socials():
     }
 def default_chess_profile():
     return {
+        "chess_title":"",
         "top_rating":"",
         "top_rating_date":"",
         "top_rating_type": "",
@@ -31,6 +32,7 @@ def default_chess_profile():
     }
 def default_checkers_profile():
     return {
+        "draughts_title":"",
         "top_rating":"",
         "top_rating_date":"",
         "top_rating_type": "",

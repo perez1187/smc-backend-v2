@@ -40,14 +40,30 @@ class ProfilesFilteredAPIView(generics.ListAPIView):
     # examle: http://127.0.0.1:8000/profile-owner/profiles/?profile=user_profile&language=1
     def get_queryset(self):
         queryset = Profile_owner.objects.all()
+        queryset1 = Profile_owner.objects.filter(profile_type="draughts_instructor")
+        queryset2 = Profile_owner.objects.filter(profile_type="chess_instructor")
         
+        
+        '''  temporary after that we add filtering '''
         profile = self.request.query_params.get('profile')
+        language = self.request.query_params.get('language')
+
+        ''' this is something that I need to check after adding filtering to fron'''
+        # if profile is not none, we change queryset and we check language
+        # after that we return queryset
         if profile is not None:        
             queryset=queryset.filter(profile_type=profile)
-        language = self.request.query_params.get('language')
+            
+            if language is not None:        
+                queryset=queryset.filter(languages_test=language) 
+            return queryset
+        
         if language is not None:        
-            queryset=queryset.filter(languages_test=language)        
-        return queryset
+            queryset=queryset.filter(languages_test=language)  
+            return queryset
+         
+        ''' for returning more value we can use this:  '''      
+        return queryset1 | queryset2
 
 
 

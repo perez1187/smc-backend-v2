@@ -69,10 +69,11 @@ class Profile_owner(models.Model):
     country = models.CharField(max_length =5, blank= True, default="pl")
 
     is_instructor = models.BooleanField(default=False, blank=True)
+   
     # added for auth provider, in future as db table
-    profile_type = models.CharField(
-        max_length=255, blank=True,
-        null=False)
+    # profile_type = models.CharField(
+    #     max_length=255, blank=True,
+    #     null=False)
     
     # link = models.CharField(max_length=255, blank=False, default="")
 

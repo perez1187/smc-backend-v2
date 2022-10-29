@@ -40,8 +40,8 @@ class ProfilesFilteredAPIView(generics.ListAPIView):
     # examle: http://127.0.0.1:8000/profile-owner/profiles/?profile=user_profile&language=1
     def get_queryset(self):
         queryset = Profile_owner.objects.all()
-        queryset1 = Profile_owner.objects.filter(profileType=2) # id 2 is a chess instructor
-        queryset2 = Profile_owner.objects.filter(profileType=3) # id 3 is a draughts instructor
+        queryset1 = Profile_owner.objects.filter(profileType=2, is_instructor=True) # id 2 is a chess instructor
+        queryset2 = Profile_owner.objects.filter(profileType=3, is_instructor=True) # id 3 is a draughts instructor
         
         
         '''  temporary after that we add filtering '''

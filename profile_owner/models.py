@@ -46,6 +46,9 @@ def avatar_upload(instance,filename):
 class Languages(models.Model):
     language = models.CharField(max_length=32, blank=True)
 
+class ProfileType(models.Model):
+    type = models.CharField(max_length=32, blank=True)
+
 class Profile_owner(models.Model):
     '''
         this is the way how django recommend to conect user as ForeignKey
@@ -56,6 +59,7 @@ class Profile_owner(models.Model):
         verbose_name="user",
         blank=True # temporary
     )
+    profileType = models.ForeignKey(ProfileType, on_delete= models.PROTECT, default=1)
     avatar= models.ImageField(upload_to=avatar_upload, blank=True, null=True)
     first_name = models.CharField(max_length=65, blank=True, default="")
     last_name = models.CharField(max_length=65, blank=True, default="")

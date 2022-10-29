@@ -5,6 +5,7 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
     list_display= (
         "id",
         "user",
+        "profileType",
         "is_instructor",
         "avatar",
         'first_name',
@@ -19,14 +20,13 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
         "hidden_message",
         "accepts_new_students",
         "languages",
-        
-
-
+ 
     )
     fields =(
         
         "user",
         "is_instructor",
+        "profileType",
         "avatar",
         "country",
         'first_name',
@@ -48,6 +48,7 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
 
 admin.site.register(models.Profile_owner, ProfileOwnerAdmin)
 admin.site.register(models.Languages)
+admin.site.register(models.ProfileType)
 admin.site.register(models.UploadImageTest)
 
 '''

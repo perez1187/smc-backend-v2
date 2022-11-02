@@ -40,8 +40,13 @@ def default_checkers_profile():
         "actual_rating_type":"",
         "fmjd.org":"",        
     }
+
+''' old function uploa  '''
+# def avatar_upload(instance,filename):
+#     return 'avatars/{filename}'.format(filename=filename)
+
 def avatar_upload(instance,filename):
-    return 'avatars/{filename}'.format(filename=filename)
+    return '/'.join([str(instance.user),'avatar',filename])
 
 class Languages(models.Model):
     language = models.CharField(max_length=32, blank=True)
@@ -57,7 +62,9 @@ class Profile_owner(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name="user",
-        blank=True # temporary
+        # null=True,
+        blank=True # temporary,
+    
     )
     profileType = models.ForeignKey(ProfileType, on_delete= models.PROTECT, default=1)
     avatar= models.ImageField(upload_to=avatar_upload, blank=True, null=True)

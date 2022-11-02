@@ -1,6 +1,6 @@
 from rest_framework import generics,views,status,response
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from django.shortcuts import get_object_or_404
 
@@ -12,8 +12,39 @@ from authentication import authentication
 
 #  models
 from . models import Profile_owner, UploadImageTest
+from authentication import models
 
+'''
+    create profile owner (eg chess instructor)
+'''
+class CreateProfileOwnerApiView(generics.GenericAPIView):
+    queryset = Profile_owner.objects.all()
+    serializer_class = ProfileSerializer
+    authentication_classes=(authentication.CustomUserAuthentication, )
+    permission_classes = [IsAuthenticated]
 
+    def post(self, request):
+        # screating profile owner for chess instructor
+        serializer= self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)  
+
+        ''' verify user with self.request user  '''
+        try: 
+            currentUser = models.User.objects.get(id=request.data['user'])
+        except:
+            currentUser= 0
+        
+        
+        if currentUser == self.request.user :
+            # print(currentUser)
+            # print(request.data['user'])
+            # print(self.request.user)
+            serializer.save()
+            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print("current user !=  user in post method")
+            return response.Response({"error":"current user !=  user in post method"}, status=status.HTTP_401_UNAUTHORIZED)
+        
 
 '''
     Get User info

@@ -51,6 +51,7 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255)
     password = serializers.CharField(max_length=68,write_only=True)
+    id= serializers.CharField(max_length=10, read_only=True)
     # tokens = serializers.CharField(max_length= 68, read_only=True) # it return strings
     # it can be SerializerMethodField()
     # less problems on the frontend? https://www.youtube.com/watch?v=A0be-LPHxIc&list=PLx-q4INfd95EsUuON1TIcjnFZSqUfMf7s&index=20
@@ -68,7 +69,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model= User
-        fields= ['email', 'password', 'tokens']
+        fields= ['email', 'id','password', 'tokens']
 
     def validate(self, attrs):
         email = attrs.get('email', '')
@@ -76,6 +77,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
         user=auth.authenticate(email=email, password=password)
 
+        # print(user.id)
         if not user:
             raise AuthenticationFailed('invalid credentials, try again')
 
@@ -87,6 +89,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
         return {
             'email':user.email,
+            'id':user.id,
             'tokens': user.tokens
         }
 

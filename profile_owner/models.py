@@ -46,7 +46,7 @@ def default_checkers_profile():
 #     return 'avatars/{filename}'.format(filename=filename)
 
 def avatar_upload(instance,filename):
-    return '/'.join([str(instance.user),'avatar',filename])
+    return '/'.join(['profiles',str(instance.slug),'avatar',filename])
 
 class Languages(models.Model):
     language = models.CharField(max_length=32, blank=True)

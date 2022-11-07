@@ -86,7 +86,7 @@ class Profile_owner(models.Model):
 
     socials = models.JSONField(default=default_socials, blank=True)
     chess_profile = models.JSONField(default=default_chess_profile,blank=True)
-    checkers_profile = models.JSONField(default=default_checkers_profile,blank=True)
+    checkers_profile = models.JSONField(default=dict,blank=True)
     profile_is_active = models.BooleanField(default=False,blank=True)
     hidden_message = models.TextField(blank=True,default='')
     accepts_new_students = models.BooleanField(default=False, blank=True)

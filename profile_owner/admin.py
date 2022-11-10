@@ -17,9 +17,12 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
         "chess_profile",
         "checkers_profile",
         "profile_is_active",
-        "hidden_message",
         "accepts_new_students",
         "languages",
+        "successes",
+        "teachingExperience",
+        "description",
+        "hidden_message",
  
     )
     fields =(
@@ -38,12 +41,13 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
         "chess_profile",
         "checkers_profile",
         "profile_is_active",
-        "hidden_message",
         "accepts_new_students",
         "languages",
         "languages_test",
-        
-
+        "successes",
+        "teachingExperience",
+        "description",
+        "hidden_message",
     )
 
 admin.site.register(models.Profile_owner, ProfileOwnerAdmin)

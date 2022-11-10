@@ -70,28 +70,26 @@ class Profile_owner(models.Model):
     avatar= models.ImageField(upload_to=avatar_upload, blank=True, null=True)
     first_name = models.CharField(max_length=65, blank=True, default="")
     last_name = models.CharField(max_length=65, blank=True, default="")
+
     profile_name = models.CharField(max_length=255, blank=True, default="")
     slug= models.SlugField(blank=True, null=True,unique=True)
 
     country = models.CharField(max_length =5, blank= True, default="pl")
 
     is_instructor = models.BooleanField(default=False, blank=True)
+    profile_is_active = models.BooleanField(default=False,blank=True)
+    accepts_new_students = models.BooleanField(default=False, blank=True)
    
-    # added for auth provider, in future as db table
-    # profile_type = models.CharField(
-    #     max_length=255, blank=True,
-    #     null=False)
-    
-    # link = models.CharField(max_length=255, blank=False, default="")
-
     socials = models.JSONField(default=default_socials, blank=True)
     chess_profile = models.JSONField(default=default_chess_profile,blank=True)
-    checkers_profile = models.JSONField(default=dict,blank=True)
-    profile_is_active = models.BooleanField(default=False,blank=True)
+    checkers_profile = models.JSONField(default=dict,blank=True)   
+    
+    successes = models.TextField(blank=True,default='')
+    teachingExperience = models.TextField(blank=True,default='')
+    description= models.TextField(blank=True,default='')
     hidden_message = models.TextField(blank=True,default='')
-    accepts_new_students = models.BooleanField(default=False, blank=True)
-    languages = models.CharField(max_length=16, blank=True, default='eng')
 
+    languages = models.CharField(max_length=16, blank=True, default='eng')
     languages_test = models.ManyToManyField(Languages, blank=True, null=True)
 
 def nameFile(instance, filename):

@@ -50,7 +50,17 @@ class ProfileOwnerAdmin(admin.ModelAdmin): # he also write _UserAdmin
         "hidden_message",
     )
 
+class TitleAdmin(admin.ModelAdmin):
+    list_display= (
+        'id','title','description'
+    )
+    fields =(
+        'title','description'
+    )
+
+
 admin.site.register(models.Profile_owner, ProfileOwnerAdmin)
+admin.site.register(models.Title, TitleAdmin)
 admin.site.register(models.Languages)
 admin.site.register(models.ProfileType)
 admin.site.register(models.UploadImageTest)

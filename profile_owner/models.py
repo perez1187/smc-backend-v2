@@ -54,6 +54,10 @@ class Languages(models.Model):
 class ProfileType(models.Model):
     type = models.CharField(max_length=32, blank=True)
 
+class Title(models.Model):
+    title = models.CharField(max_length=32, blank=True)    
+    description =  models.CharField(max_length=32, blank=True)
+
 class Profile_owner(models.Model):
     '''
         this is the way how django recommend to conect user as ForeignKey

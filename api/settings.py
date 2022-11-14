@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = True # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -192,6 +192,8 @@ CELERY_BROKER_URL = 'redis://localhost:6380'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+ALLOWED_HOSTS = ['http://161.35.201.222/','161.35.201.222']
 
 # CORS_ALLOWED_ORIGINS = [
 #     '*'

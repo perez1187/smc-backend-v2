@@ -123,23 +123,23 @@ AUTH_USER_MODEL = 'authentication.User'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-''' postgres '''
 # DATABASES = {
 #     'default': {
-#         'ENGINE': config('ENGINE'),        
-#         'NAME': config('NAME'),
-#         'USER': 'db_user', #config('USER'), 
-#         'PASSWORD': config('PASSWORD'), 
-#         'HOST': config('HOST'),
-#         'PORT': config('PORT'),
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+''' postgres but locally used sqlite '''
+DATABASES = {
+    'default': {
+        'ENGINE': config('ENGINE'),        
+        'NAME': config('NAME'),
+        'USER': 'db_user', #config('USER'), 
+        'PASSWORD': config('PASSWORD'), 
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
+    }
+}
 
 REST_FRAMEWORK = {
     # instead of page number it can be more options

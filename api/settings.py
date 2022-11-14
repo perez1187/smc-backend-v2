@@ -134,7 +134,7 @@ DATABASES = {
     'default': {
         'ENGINE': config('ENGINE'),        
         'NAME': config('NAME'),
-        'USER': 'db_user', #config('USER'), 
+        'USER': 'smc_production_admin', #config('USER'), 
         'PASSWORD': config('PASSWORD'), 
         'HOST': config('HOST'),
         'PORT': config('PORT'),

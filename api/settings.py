@@ -190,11 +190,11 @@ MEDIA_URL = '/media/' # 'http://myhost:port/media/'
 # CELERY SETTINGS
 CELERY_BROKER_URL = 'redis://localhost:6380'
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-#     "http://127.0.0.1:9000",
-#     "http://161.35.201.222:8000",
-
-# ]
+CORS_ALLOWED_ORIGINS = [
+    '*'
+    # "http://localhost:5173",
+    # "http://127.0.0.1:9000",
+    # "http://161.35.201.222:8000",
+]
